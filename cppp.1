@@ -1,0 +1,79 @@
+.TH CPPP 1
+.LO 1
+.SH NAME
+cppp \- C partial preprocessor
+.SH SYNOPSIS
+.B cppp
+[OPTIONS] [\fISOURCE\fR ... [\fIDEST\fR]]
+.SH DESCRIPTION
+.B cppp
+mimics the C preprocessor enough to find the #ifdef, #ifndef, and #if
+preprocessor commands, and applies them for the symbols that are
+specified on the command line. All other symbols are left unprocessed.
+.P
+If more than one
+.I SOURCE
+is specified, then
+.I DEST
+names a directory, to which all of the partially-preprocessed files
+are written with the same names as the original source files.
+.P
+If
+.I DEST
+is omitted, the partially-preprocessed
+.I SOURCE
+is emitted to standard output. If
+.I SOURCE
+is also omitted,
+.B cppp
+reads from standard input.
+.P
+#if lines can contain more than one test (using the defined
+preprocessor operator), so such lines may be edited, rather than
+merely omitted. Likewise, #elif lines may change into #if or #else
+lines.
+.SH OPTIONS
+.TP
+\fB\-D\fR \fISYMBOL\fR[\fB=\fR\fIVALUE\fR]
+Treat
+.I SYMBOL
+as defined to be
+.I VALUE
+during partial preprocessing. 
+.IR VALUE ,
+if present, must be an integer constant. If
+.I VALUE
+is omitted,
+.I SYMBOL
+will be defined as 1.
+.TP
+\fB\-U\fR \fISYMBOL\fR
+Treat
+.I SYMBOL
+as undefined during partial preprocessing.
+.TP
+.B \--help
+Display help and exit.
+.TP
+.B \--version
+Display version information and exit.
+.SH BUGS
+.B cppp
+does not recognize identifiers and tokens with escaped line breaks
+embedded.
+.P
+Trigraphs and digraphs are not recognized.
+.P
+It is possible (using nest preprocessor commands) to produce an empty
+section in the output.
+.B cppp
+does not collapse these.
+.P
+Comments on edited preprocessor lines are not always preserved.
+.SH COPYRIGHT
+Copyright \(co 1995, 1999, 2011 Brian Raiter
+<breadbox@muppetlabs.com>.
+.P
+License GPLv2+: GNU GPL version 2 or later. This is free software: you
+are free to change and redistribute it. There is NO WARRANTY, to the
+extent permitted by law.
